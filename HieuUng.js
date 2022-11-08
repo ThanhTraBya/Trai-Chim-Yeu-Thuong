@@ -1,8 +1,8 @@
 var settings = {
     particles: {
-        length: 2000, // maximum amount of particles
-        duration: 1, // particle duration in sec
-        velocity: 400, // particle velocity in pixels/sec
+        length: 4000, // maximum amount of particles
+        duration: 0.6, // particle duration in sec
+        velocity: 500, // particle velocity in pixels/sec
         effect: -2, // play with this for a nice effect
         size: 25, // particle size in pixels
     },
@@ -176,8 +176,8 @@ var ParticlePool = (function() {
     // get point on heart with -PI <= t <= PI
     function pointOnHeart(t) {
         return new Point(
-            160 * Math.pow(Math.sin(t), 3),
-            130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
+            130 * Math.pow(Math.sin(t), 3),
+            100 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 15 * Math.cos(4 * t)
         );
     }
 
@@ -190,8 +190,8 @@ var ParticlePool = (function() {
         // helper function to create the path
         function to(t) {
             var point = pointOnHeart(t);
-            point.x = settings.particles.size / 3 + point.x * settings.particles.size / 550;
-            point.y = settings.particles.size / 3 - point.y * settings.particles.size / 550;
+            point.x = settings.particles.size / 3 + point.x * settings.particles.size / 500;
+            point.y = settings.particles.size / 3 - point.y * settings.particles.size / 600;
             return point;
         }
         // create the path
@@ -200,17 +200,17 @@ var ParticlePool = (function() {
         var point = to(t);
         context.moveTo(point.x, point.y);
         while (t < Math.PI) {
-            t += 0.01; // baby steps!
+            t += 0.1; // baby steps!
             point = to(t);
             context.lineTo(point.x, point.y);
         }
         context.closePath();
         // create the fill
-        context.fillStyle = '#ea80b0';
+        context.fillStyle = '#FF0000';
         context.fill();
         // create the image
         var image = new Image();
-        image.src = canvas.toDataURL();
+        image.src = canvas.toDataURL("");
         return image;
     })();
 
@@ -220,7 +220,7 @@ var ParticlePool = (function() {
         requestAnimationFrame(render);
 
         // update time
-        var newTime = new Date().getTime() / 1000,
+        var newTime = new Date().getTime() / 5000,
             deltaTime = newTime - (time || newTime);
         time = newTime;
 
@@ -251,5 +251,5 @@ var ParticlePool = (function() {
     setTimeout(function() {
         onResize();
         render();
-    }, 10);
+    }, 0);
 })(document.getElementById('pinkboard'));

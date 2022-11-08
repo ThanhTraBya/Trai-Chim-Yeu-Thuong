@@ -1,9 +1,10 @@
 html,
 body {
+    height: 100vh;
     overflow: hidden;
     padding: 0;
     margin: 0;
-    background: #000;
+    background: black;
 }
 canvas {
     position: absolute;
@@ -11,13 +12,10 @@ canvas {
     height: 100%;
 }
 canvas {
-    /* top: 50%;
-    left: 50%; */
     z-index: 1;
     display: block;
     position: absolute;
-    /* transform: translate(0%,0%); */
-    animation: flower 1.2s linear infinite
+    animation: flower 0.9s linear infinite
 
 }
 @keyframes flower{
@@ -25,7 +23,7 @@ canvas {
         transform: scale(1);
     }
     30% {
-        transform: scale(0.9);
+        transform: scale(1.1);
     }
     60% {
         transform: scale(1.3);
